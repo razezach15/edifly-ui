@@ -12,3 +12,6 @@ export type { AccordionProps, AccordionItemProps } from './Accordion';
 
 export { AlertDialog } from './AlertDialog';
 export type { AlertDialogProps } from './AlertDialog';
+
+export { AspectRatio } from './AspectRatio';
+export type { AspectRatioProps } from './AspectRatio';

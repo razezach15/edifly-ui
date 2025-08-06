@@ -155,6 +155,40 @@ import { AlertDialog } from 'edifly-ui';
 - `closable`: boolean - Show close button
 - `maskClosable`: boolean - Close on backdrop click
 
+### AspectRatio
+
+A container that maintains a consistent aspect ratio for its content.
+
+```tsx
+import { AspectRatio } from 'edifly-ui';
+
+// Using predefined ratios
+<AspectRatio ratio={AspectRatio.RATIOS.LANDSCAPE_16_9}>
+  <img src="image.jpg" alt="16:9 image" />
+</AspectRatio>
+
+// Using custom ratio
+<AspectRatio ratio={1.5} maxWidth="400px">
+  <video src="video.mp4" />
+</AspectRatio>
+
+// Using width/height
+<AspectRatio width={800} height={600}>
+  <iframe src="https://example.com" />
+</AspectRatio>
+```
+
+**Props:**
+- `ratio`: number - Custom aspect ratio (width/height)
+- `width/height`: number - Alternative way to define ratio
+- `maxWidth/maxHeight`: string | number - Size constraints
+- `minWidth/minHeight`: string | number - Minimum size constraints
+
+**Predefined Ratios:**
+- `SQUARE` (1:1), `GOLDEN` (1.618:1)
+- `LANDSCAPE_16_9`, `LANDSCAPE_4_3`, `LANDSCAPE_3_2`, `LANDSCAPE_21_9`
+- `PORTRAIT_3_4`, `PORTRAIT_2_3`, `PORTRAIT_9_16`
+
 ## Theming
 
 Edifly UI uses CSS variables for theming. You can customize the appearance by overriding these variables:
