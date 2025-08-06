@@ -262,6 +262,44 @@ import { Checkbox } from 'edifly-ui';
 - `onChange`: function - Change handler (checked, event)
 - `disabled`: boolean - Disable the checkbox
 
+### Collapsible
+
+A component that can hide and show content with smooth animations.
+
+```tsx
+import { Collapsible } from 'edifly-ui';
+
+// Basic usage
+<Collapsible>
+  <p>This content can be collapsed and expanded</p>
+</Collapsible>
+
+// With custom trigger
+<Collapsible 
+  trigger={<span>📁 Click to expand</span>}
+  defaultOpen={true}
+>
+  <div>Custom trigger content</div>
+</Collapsible>
+
+// Controlled
+<Collapsible 
+  open={isOpen}
+  onOpenChange={setIsOpen}
+  animated={true}
+>
+  <p>Controlled collapsible content</p>
+</Collapsible>
+```
+
+**Props:**
+- `open`: boolean - Controlled open state
+- `defaultOpen`: boolean - Default open state
+- `trigger`: React.ReactNode - Custom trigger content
+- `onOpenChange`: function - Change handler (open)
+- `animated`: boolean - Enable smooth animations
+- `animationDuration`: number - Animation duration in ms
+
 ## Theming
 
 Edifly UI uses CSS variables for theming. You can customize the appearance by overriding these variables:

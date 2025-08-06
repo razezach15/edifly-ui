@@ -21,3 +21,6 @@ export type { AvatarProps, AvatarShape } from './Avatar';
 
 export { Checkbox } from './Checkbox';
 export type { CheckboxProps } from './Checkbox';
+
+export { Collapsible } from './Collapsible';
+export type { CollapsibleProps } from './Collapsible';
