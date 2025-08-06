@@ -125,6 +125,36 @@ import { Accordion } from 'edifly-ui';
 - `ghost`: boolean - Remove background and borders
 - `expandIconPosition`: 'start' | 'end' - Position of expand icon
 
+### AlertDialog
+
+A modal dialog for confirmations, alerts, and important notifications.
+
+```tsx
+import { AlertDialog } from 'edifly-ui';
+
+<AlertDialog
+  open={isOpen}
+  onClose={() => setIsOpen(false)}
+  variant="warning"
+  title="Confirm Delete"
+  description="This action cannot be undone."
+  confirmText="Delete"
+  cancelText="Cancel"
+  onConfirm={() => handleDelete()}
+  onCancel={() => setIsOpen(false)}
+/>
+```
+
+**Props:**
+- `variant`: 'primary' | 'secondary' | 'info' | 'success' | 'warning' | 'danger'
+- `open`: boolean - Controls dialog visibility
+- `title`: React.ReactNode - Dialog title
+- `description`: React.ReactNode - Dialog description
+- `confirmText`: string - Confirm button text
+- `cancelText`: string - Cancel button text
+- `closable`: boolean - Show close button
+- `maskClosable`: boolean - Close on backdrop click
+
 ## Theming
 
 Edifly UI uses CSS variables for theming. You can customize the appearance by overriding these variables:
