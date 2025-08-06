@@ -15,3 +15,6 @@ export type { AlertDialogProps } from './AlertDialog';
 
 export { AspectRatio } from './AspectRatio';
 export type { AspectRatioProps } from './AspectRatio';
+
+export { Avatar } from './Avatar';
+export type { AvatarProps, AvatarShape } from './Avatar';

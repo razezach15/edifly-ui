@@ -189,6 +189,41 @@ import { AspectRatio } from 'edifly-ui';
 - `LANDSCAPE_16_9`, `LANDSCAPE_4_3`, `LANDSCAPE_3_2`, `LANDSCAPE_21_9`
 - `PORTRAIT_3_4`, `PORTRAIT_2_3`, `PORTRAIT_9_16`
 
+### Avatar
+
+A user avatar component that displays profile pictures or fallback content.
+
+```tsx
+import { Avatar } from 'edifly-ui';
+
+// With image
+<Avatar 
+  src="user-photo.jpg" 
+  alt="User Name"
+  size="large" 
+/>
+
+// With fallback initials
+<Avatar 
+  fallback="John Doe"
+  size="medium"
+  onClick={() => console.log('Avatar clicked')}
+/>
+
+// With custom content
+<Avatar size={48}>
+  🎉
+</Avatar>
+```
+
+**Props:**
+- `size`: 'small' | 'medium' | 'large' | number - Avatar size
+- `shape`: 'circle' | 'square' - Avatar shape
+- `src`: string - Image source URL
+- `fallback`: string - Fallback text (shows initials)
+- `icon`: React.ReactNode - Custom icon
+- `onClick`: function - Click handler (makes avatar clickable)
+
 ## Theming
 
 Edifly UI uses CSS variables for theming. You can customize the appearance by overriding these variables:
