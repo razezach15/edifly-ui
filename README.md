@@ -92,6 +92,39 @@ import { Card, Button } from 'edifly-ui';
 </Card>
 ```
 
+### Accordion
+
+A collapsible content container that can display multiple panels.
+
+```tsx
+import { Accordion } from 'edifly-ui';
+
+<Accordion
+  items={[
+    {
+      key: '1',
+      title: 'Panel 1',
+      content: 'Content of panel 1',
+    },
+    {
+      key: '2',
+      title: 'Panel 2',
+      content: 'Content of panel 2',
+    },
+  ]}
+  defaultActiveKey={['1']}
+  accordion={false}
+/>
+```
+
+**Props:**
+- `items`: Array of accordion items with `key`, `title`, `content`, and optional `disabled`, `extra`
+- `accordion`: boolean - Only allow one panel open at a time
+- `defaultActiveKey`: string | string[] - Initially active panels
+- `bordered`: boolean - Show borders around panels
+- `ghost`: boolean - Remove background and borders
+- `expandIconPosition`: 'start' | 'end' - Position of expand icon
+
 ## Theming
 
 Edifly UI uses CSS variables for theming. You can customize the appearance by overriding these variables:

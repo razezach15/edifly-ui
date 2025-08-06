@@ -1,0 +1,168 @@
+.edifly-accordion {
+  background-color: var(--edifly-color-bg, #ffffff);
+  border-radius: var(--edifly-border-radius-base, 6px);
+  font-family: var(--edifly-font-family, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif);
+}
+
+.edifly-accordion--bordered {
+  border: 1px solid var(--edifly-color-border, #d9d9d9);
+}
+
+.edifly-accordion--ghost {
+  background-color: transparent;
+}
+
+.edifly-accordion--ghost .edifly-accordion__item {
+  border: none;
+}
+
+/* Accordion Item */
+.edifly-accordion__item {
+  border-bottom: 1px solid var(--edifly-color-border-secondary, #f0f0f0);
+  transition: all var(--edifly-transition-base, 0.2s ease-in-out);
+}
+
+.edifly-accordion__item:last-child {
+  border-bottom: none;
+}
+
+.edifly-accordion__item--active {
+  border-color: var(--edifly-color-primary, #1890ff);
+}
+
+.edifly-accordion__item--disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+/* Header */
+.edifly-accordion__header {
+  display: flex;
+  align-items: center;
+  padding: var(--edifly-spacing-lg, 16px);
+  cursor: pointer;
+  transition: all var(--edifly-transition-base, 0.2s ease-in-out);
+  background-color: var(--edifly-color-bg, #ffffff);
+  color: var(--edifly-color-text, #000000d9);
+  font-weight: 500;
+  font-size: var(--edifly-font-size-sm, 14px);
+  line-height: var(--edifly-line-height-base, 1.5);
+  position: relative;
+}
+
+.edifly-accordion__header:hover:not(.edifly-accordion__header--disabled) {
+  background-color: var(--edifly-color-bg-hover, #fafafa);
+}
+
+.edifly-accordion__header:focus {
+  outline: none;
+  background-color: var(--edifly-color-bg-hover, #fafafa);
+}
+
+.edifly-accordion__header--disabled {
+  cursor: not-allowed;
+  color: var(--edifly-color-text-disabled, #00000040);
+}
+
+/* Ghost variant header */
+.edifly-accordion--ghost .edifly-accordion__header {
+  background-color: transparent;
+  padding-left: 0;
+  padding-right: 0;
+}
+
+.edifly-accordion--ghost .edifly-accordion__header:hover:not(.edifly-accordion__header--disabled) {
+  background-color: transparent;
+  color: var(--edifly-color-primary, #1890ff);
+}
+
+/* Expand Icon */
+.edifly-accordion__expand-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: transform var(--edifly-transition-base, 0.2s ease-in-out);
+  color: var(--edifly-color-text-secondary, #00000073);
+}
+
+.edifly-accordion--icon-end .edifly-accordion__expand-icon {
+  margin-left: auto;
+}
+
+.edifly-accordion:not(.edifly-accordion--icon-end) .edifly-accordion__expand-icon {
+  margin-right: var(--edifly-spacing-sm, 8px);
+}
+
+.edifly-accordion--icon-end .edifly-accordion__expand-icon {
+  margin-left: var(--edifly-spacing-sm, 8px);
+}
+
+.edifly-accordion__icon {
+  transition: transform var(--edifly-transition-base, 0.2s ease-in-out);
+  transform: rotate(-90deg);
+}
+
+.edifly-accordion__icon--active {
+  transform: rotate(0deg);
+}
+
+/* Title */
+.edifly-accordion__title {
+  flex: 1;
+  text-align: left;
+}
+
+/* Extra */
+.edifly-accordion__extra {
+  margin-left: var(--edifly-spacing-sm, 8px);
+  color: var(--edifly-color-text-secondary, #00000073);
+  font-weight: normal;
+}
+
+/* Content */
+.edifly-accordion__content {
+  overflow: hidden;
+  transition: height var(--edifly-transition-slow, 0.3s ease-in-out);
+  background-color: var(--edifly-color-bg, #ffffff);
+}
+
+.edifly-accordion--ghost .edifly-accordion__content {
+  background-color: transparent;
+}
+
+.edifly-accordion__content-inner {
+  padding: 0 var(--edifly-spacing-lg, 16px) var(--edifly-spacing-lg, 16px);
+  color: var(--edifly-color-text, #000000d9);
+  font-size: var(--edifly-font-size-sm, 14px);
+  line-height: var(--edifly-line-height-base, 1.5);
+}
+
+.edifly-accordion--ghost .edifly-accordion__content-inner {
+  padding-left: 0;
+  padding-right: 0;
+}
+
+/* When icon is at the end, adjust content padding */
+.edifly-accordion--icon-end .edifly-accordion__content-inner {
+  padding-left: var(--edifly-spacing-lg, 16px);
+}
+
+.edifly-accordion--ghost.edifly-accordion--icon-end .edifly-accordion__content-inner {
+  padding-left: 0;
+}
+
+/* Responsive adjustments */
+@media (max-width: 576px) {
+  .edifly-accordion__header {
+    padding: var(--edifly-spacing-md, 12px);
+  }
+  
+  .edifly-accordion__content-inner {
+    padding: 0 var(--edifly-spacing-md, 12px) var(--edifly-spacing-md, 12px);
+  }
+  
+  .edifly-accordion--ghost .edifly-accordion__content-inner {
+    padding-left: 0;
+    padding-right: 0;
+  }
+}
