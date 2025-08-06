@@ -24,3 +24,6 @@ export type { CheckboxProps } from './Checkbox';
 
 export { Collapsible } from './Collapsible';
 export type { CollapsibleProps } from './Collapsible';
+
+export { Command } from './Command';
+export type { CommandProps, CommandItem, CommandGroup } from './Command';

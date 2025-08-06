@@ -300,6 +300,60 @@ import { Collapsible } from 'edifly-ui';
 - `animated`: boolean - Enable smooth animations
 - `animationDuration`: number - Animation duration in ms
 
+### Command
+
+A command palette/search interface for quick actions and navigation.
+
+```tsx
+import { Command } from 'edifly-ui';
+
+// Basic command list
+<Command
+  items={[
+    {
+      id: 'new',
+      label: 'New File',
+      description: 'Create a new file',
+      icon: <FileIcon />,
+      onSelect: () => createNewFile(),
+    },
+    {
+      id: 'open',
+      label: 'Open File',
+      description: 'Open an existing file',
+      icon: <FolderIcon />,
+    },
+  ]}
+  placeholder="Type a command..."
+  onSelect={(item) => console.log('Selected:', item)}
+/>
+
+// Grouped commands
+<Command
+  groups={[
+    {
+      id: 'file',
+      label: 'File',
+      items: fileCommands,
+    },
+    {
+      id: 'edit',
+      label: 'Edit',
+      items: editCommands,
+    },
+  ]}
+/>
+```
+
+**Props:**
+- `items`: CommandItem[] - List of command items
+- `groups`: CommandGroup[] - Grouped command items
+- `placeholder`: string - Input placeholder text
+- `onSelect`: function - Item selection handler
+- `filter`: function - Custom search filter function
+- `loading`: boolean - Show loading state
+- `emptyMessage`: string - Message when no results
+
 ## Theming
 
 Edifly UI uses CSS variables for theming. You can customize the appearance by overriding these variables:
