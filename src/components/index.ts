@@ -18,3 +18,6 @@ export type { AspectRatioProps } from './AspectRatio';
 
 export { Avatar } from './Avatar';
 export type { AvatarProps, AvatarShape } from './Avatar';
+
+export { Checkbox } from './Checkbox';
+export type { CheckboxProps } from './Checkbox';

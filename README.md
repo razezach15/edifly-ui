@@ -224,6 +224,44 @@ import { Avatar } from 'edifly-ui';
 - `icon`: React.ReactNode - Custom icon
 - `onClick`: function - Click handler (makes avatar clickable)
 
+### Checkbox
+
+A checkbox input component for selecting options in forms.
+
+```tsx
+import { Checkbox } from 'edifly-ui';
+
+// Basic checkbox
+<Checkbox onChange={(checked) => console.log(checked)}>
+  Accept terms
+</Checkbox>
+
+// Controlled checkbox
+<Checkbox 
+  checked={isChecked}
+  onChange={(checked) => setIsChecked(checked)}
+>
+  Subscribe to newsletter
+</Checkbox>
+
+// Indeterminate state
+<Checkbox 
+  indeterminate={someSelected && !allSelected}
+  checked={allSelected}
+  onChange={handleSelectAll}
+>
+  Select All
+</Checkbox>
+```
+
+**Props:**
+- `size`: 'small' | 'medium' | 'large' - Checkbox size
+- `checked`: boolean - Controlled checked state
+- `defaultChecked`: boolean - Default checked state
+- `indeterminate`: boolean - Shows dash instead of checkmark
+- `onChange`: function - Change handler (checked, event)
+- `disabled`: boolean - Disable the checkbox
+
 ## Theming
 
 Edifly UI uses CSS variables for theming. You can customize the appearance by overriding these variables:
