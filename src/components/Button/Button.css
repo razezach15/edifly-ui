@@ -1,0 +1,112 @@
+.edifly-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  border: none;
+  border-radius: 6px;
+  font-family: var(--edifly-font-family, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif);
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s ease-in-out;
+  text-decoration: none;
+  box-sizing: border-box;
+}
+
+/* Sizes */
+.edifly-btn--small {
+  padding: 4px 12px;
+  font-size: 12px;
+  line-height: 1.4;
+}
+
+.edifly-btn--medium {
+  padding: 8px 16px;
+  font-size: 14px;
+  line-height: 1.5;
+}
+
+.edifly-btn--large {
+  padding: 12px 24px;
+  font-size: 16px;
+  line-height: 1.5;
+}
+
+/* Variants */
+.edifly-btn--primary {
+  background-color: var(--edifly-color-primary, #1890ff);
+  color: white;
+}
+
+.edifly-btn--primary:hover:not(:disabled) {
+  background-color: var(--edifly-color-primary-hover, #40a9ff);
+}
+
+.edifly-btn--primary:active:not(:disabled) {
+  background-color: var(--edifly-color-primary-active, #096dd9);
+}
+
+.edifly-btn--secondary {
+  background-color: transparent;
+  color: var(--edifly-color-text, #000000d9);
+  border: 1px solid var(--edifly-color-border, #d9d9d9);
+}
+
+.edifly-btn--secondary:hover:not(:disabled) {
+  color: var(--edifly-color-primary, #1890ff);
+  border-color: var(--edifly-color-primary, #1890ff);
+}
+
+.edifly-btn--success {
+  background-color: var(--edifly-color-success, #52c41a);
+  color: white;
+}
+
+.edifly-btn--success:hover:not(:disabled) {
+  background-color: var(--edifly-color-success-hover, #73d13d);
+}
+
+.edifly-btn--warning {
+  background-color: var(--edifly-color-warning, #faad14);
+  color: white;
+}
+
+.edifly-btn--warning:hover:not(:disabled) {
+  background-color: var(--edifly-color-warning-hover, #ffc53d);
+}
+
+.edifly-btn--danger {
+  background-color: var(--edifly-color-danger, #ff4d4f);
+  color: white;
+}
+
+.edifly-btn--danger:hover:not(:disabled) {
+  background-color: var(--edifly-color-danger-hover, #ff7875);
+}
+
+/* Disabled state */
+.edifly-btn--disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+/* Loading spinner */
+.edifly-btn__spinner {
+  width: 14px;
+  height: 14px;
+  border: 2px solid currentColor;
+  border-top: 2px solid transparent;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+.edifly-btn__content {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}

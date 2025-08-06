@@ -1,0 +1,120 @@
+.edifly-card {
+  background-color: var(--edifly-color-bg, #ffffff);
+  border-radius: 8px;
+  overflow: hidden;
+  transition: all 0.3s ease;
+  position: relative;
+}
+
+.edifly-card--bordered {
+  border: 1px solid var(--edifly-color-border, #f0f0f0);
+}
+
+.edifly-card--hoverable {
+  cursor: pointer;
+}
+
+.edifly-card--hoverable:hover {
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.09);
+  transform: translateY(-2px);
+}
+
+.edifly-card__cover {
+  width: 100%;
+  overflow: hidden;
+}
+
+.edifly-card__cover img {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+
+.edifly-card__header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 16px 20px;
+  border-bottom: 1px solid var(--edifly-color-border, #f0f0f0);
+}
+
+.edifly-card__title {
+  font-size: 16px;
+  font-weight: 500;
+  color: var(--edifly-color-text, #000000d9);
+  margin: 0;
+}
+
+.edifly-card__extra {
+  color: var(--edifly-color-text-secondary, #00000073);
+}
+
+.edifly-card__body {
+  padding: 20px;
+  color: var(--edifly-color-text, #000000d9);
+  font-size: 14px;
+  line-height: 1.5;
+}
+
+.edifly-card__actions {
+  display: flex;
+  border-top: 1px solid var(--edifly-color-border, #f0f0f0);
+}
+
+.edifly-card__action {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 12px 16px;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+  border-right: 1px solid var(--edifly-color-border, #f0f0f0);
+}
+
+.edifly-card__action:last-child {
+  border-right: none;
+}
+
+.edifly-card__action:hover {
+  background-color: var(--edifly-color-bg-hover, #fafafa);
+}
+
+/* Loading state */
+.edifly-card--loading {
+  opacity: 0.8;
+}
+
+.edifly-card__loading {
+  padding: 20px 0;
+}
+
+.edifly-card__skeleton {
+  height: 14px;
+  background: linear-gradient(90deg, #f0f0f0 25%, rgba(240, 240, 240, 0.5) 37%, #f0f0f0 63%);
+  background-size: 400% 100%;
+  border-radius: 4px;
+  margin-bottom: 12px;
+  animation: skeleton-loading 1.4s ease-in-out infinite;
+}
+
+.edifly-card__skeleton:nth-child(1) {
+  width: 60%;
+}
+
+.edifly-card__skeleton:nth-child(2) {
+  width: 80%;
+}
+
+.edifly-card__skeleton:nth-child(3) {
+  width: 40%;
+}
+
+@keyframes skeleton-loading {
+  0% {
+    background-position: 200% 0;
+  }
+  100% {
+    background-position: -200% 0;
+  }
+}
