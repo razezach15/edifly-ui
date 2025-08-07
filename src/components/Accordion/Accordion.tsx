@@ -1,7 +1,6 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { BaseComponentProps } from '../../types';
-import { getComponentClasses } from '../../utils/classNames';
-import './Accordion.css';
+import { cn } from '../../utils/classNames';
 
 export interface AccordionItemProps {
   key: string;
@@ -23,11 +22,12 @@ export interface AccordionProps extends BaseComponentProps {
   ghost?: boolean;
 }
 
-const DefaultExpandIcon = ({ isActive }: { isActive: boolean }) => (
+const DefaultExpandIcon = (isActive: boolean) => (
   <svg
-    className={`edifly-accordion__icon ${isActive ? 'edifly-accordion__icon--active' : ''}`}
-    width="12"
-    height="12"
+    className={cn(
+      'w-3 h-3 transition-transform duration-200 ease-in-out',
+      isActive ? 'rotate-180' : 'rotate-0'
+    )}
     viewBox="0 0 12 12"
     fill="currentColor"
   >
@@ -81,22 +81,15 @@ export const Accordion: React.FC<AccordionProps> = ({
     return Array.isArray(currentActiveKey) ? currentActiveKey.includes(key) : false;
   };
 
-  const accordionClasses = getComponentClasses(
-    'edifly-accordion',
-    undefined,
-    undefined,
-    undefined,
+  const accordionClasses = cn(
+    'w-full',
+    bordered && 'border border-gray-200 rounded-lg overflow-hidden',
+    ghost && 'border-0 bg-transparent',
     className
   );
 
-  const modifierClasses = [
-    bordered && 'edifly-accordion--bordered',
-    ghost && 'edifly-accordion--ghost',
-    expandIconPosition === 'end' && 'edifly-accordion--icon-end'
-  ].filter(Boolean).join(' ');
-
   return (
-    <div className={`${accordionClasses} ${modifierClasses}`.trim()} {...rest}>
+    <div className={accordionClasses} {...rest}>
       {items.map((item) => (
         <AccordionItem
           key={item.key}
@@ -135,22 +128,19 @@ const AccordionItem: React.FC<AccordionItemComponentProps> = ({
     }
   }, [isActive]);
 
-  const itemClasses = getComponentClasses(
-    'edifly-accordion__item',
-    undefined,
-    undefined,
-    item.disabled
+  const itemClasses = cn(
+    'border-b border-gray-200 last:border-b-0',
+    item.disabled && 'opacity-50 cursor-not-allowed'
   );
 
-  const headerClasses = getComponentClasses(
-    'edifly-accordion__header',
-    undefined,
-    undefined,
-    item.disabled
+  const headerClasses = cn(
+    'flex items-center w-full px-4 py-3 text-left bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-inset transition-colors duration-200',
+    expandIconPosition === 'end' && 'justify-between',
+    item.disabled && 'cursor-not-allowed hover:bg-white'
   );
 
   return (
-    <div className={`${itemClasses} ${isActive ? 'edifly-accordion__item--active' : ''}`.trim()}>
+    <div className={itemClasses}>
       <div
         className={headerClasses}
         onClick={onClick}
@@ -165,29 +155,29 @@ const AccordionItem: React.FC<AccordionItemComponentProps> = ({
         }}
       >
         {expandIconPosition === 'start' && (
-          <span className="edifly-accordion__expand-icon">
+          <span className="mr-3 flex-shrink-0 text-gray-500">
             {expandIcon(isActive)}
           </span>
         )}
         
-        <span className="edifly-accordion__title">{item.title}</span>
+        <span className="flex-1 font-medium text-gray-900">{item.title}</span>
         
         {item.extra && (
-          <span className="edifly-accordion__extra">{item.extra}</span>
+          <span className="ml-3 text-sm text-gray-500">{item.extra}</span>
         )}
         
         {expandIconPosition === 'end' && (
-          <span className="edifly-accordion__expand-icon">
+          <span className="ml-3 flex-shrink-0 text-gray-500">
             {expandIcon(isActive)}
           </span>
         )}
       </div>
       
       <div
-        className="edifly-accordion__content"
+        className="overflow-hidden transition-all duration-300 ease-in-out bg-gray-50"
         style={{ height: contentHeight }}
       >
-        <div ref={contentRef} className="edifly-accordion__content-inner">
+        <div ref={contentRef} className="px-4 py-3 text-gray-700">
           {item.content}
         </div>
       </div>

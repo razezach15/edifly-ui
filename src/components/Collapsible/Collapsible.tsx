@@ -1,7 +1,6 @@
 import React, { useRef, useEffect, useState } from 'react';
 import { BaseComponentProps } from '../../types';
-import { getComponentClasses } from '../../utils/classNames';
-import './Collapsible.css';
+import { cn } from '../../utils/classNames';
 
 export interface CollapsibleProps extends BaseComponentProps {
   open?: boolean;
@@ -66,24 +65,19 @@ export const Collapsible: React.FC<CollapsibleProps> = ({
     }
   };
 
-  const rootClasses = getComponentClasses(
-    'edifly-collapsible',
-    undefined,
-    undefined,
-    undefined,
+  const rootClasses = cn(
+    'border border-gray-200 rounded-lg',
     className
   );
 
-  const modifierClasses = [
-    isOpen && 'edifly-collapsible--open',
-    animated && 'edifly-collapsible--animated'
-  ].filter(Boolean).join(' ');
-
-  const triggerClasses = [
-    'edifly-collapsible__trigger',
-    isOpen && 'edifly-collapsible__trigger--open',
+  const triggerClasses = cn(
+    'w-full flex items-center justify-between p-3 text-left',
+    'bg-transparent border-none cursor-pointer',
+    'hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-inset',
+    'transition-colors duration-200',
+    'text-gray-900 font-medium',
     triggerClassName
-  ].filter(Boolean).join(' ');
+  );
 
   const contentStyle: React.CSSProperties = {
     height: animated ? contentHeight : (isOpen ? 'auto' : '0px'),
@@ -93,12 +87,15 @@ export const Collapsible: React.FC<CollapsibleProps> = ({
   };
 
   const DefaultTrigger = () => (
-    <span className="edifly-collapsible__default-trigger">
-      <span className="edifly-collapsible__default-text">
+    <span className="flex items-center justify-between w-full">
+      <span className="text-sm font-medium text-gray-700">
         {isOpen ? 'Hide' : 'Show'} content
       </span>
       <svg
-        className="edifly-collapsible__icon"
+        className={cn(
+          'w-3 h-3 text-gray-500 transition-transform duration-200',
+          isOpen && 'rotate-180'
+        )}
         width="12"
         height="12"
         viewBox="0 0 12 12"
@@ -111,7 +108,7 @@ export const Collapsible: React.FC<CollapsibleProps> = ({
 
   return (
     <div
-      className={`${rootClasses} ${modifierClasses}`.trim()}
+      className={rootClasses}
       style={style}
       {...rest}
     >
@@ -128,7 +125,10 @@ export const Collapsible: React.FC<CollapsibleProps> = ({
       </button>
       
       <div
-        className="edifly-collapsible__content"
+        className={cn(
+          'overflow-hidden border-t border-gray-200',
+          animated && 'transition-all duration-300 ease-in-out'
+        )}
         style={contentStyle}
         id="collapsible-content"
         role="region"
@@ -136,7 +136,7 @@ export const Collapsible: React.FC<CollapsibleProps> = ({
       >
         <div
           ref={contentRef}
-          className="edifly-collapsible__content-inner"
+          className="p-3 bg-gray-50"
         >
           {children}
         </div>

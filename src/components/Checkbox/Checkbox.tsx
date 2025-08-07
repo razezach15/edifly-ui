@@ -1,7 +1,6 @@
 import React from 'react';
 import { BaseComponentProps, Size } from '../../types';
-import { getComponentClasses } from '../../utils/classNames';
-import './Checkbox.css';
+import { cn } from '../../utils/classNames';
 
 export interface CheckboxProps extends Omit<BaseComponentProps, 'children'> {
   size?: Size;
@@ -54,26 +53,38 @@ export const Checkbox: React.FC<CheckboxProps> = ({
     onChange?.(newChecked, event);
   };
 
-  const checkboxClasses = getComponentClasses(
-    'edifly-checkbox',
-    undefined,
-    size,
-    disabled,
+  const getSizeClasses = () => {
+    switch (size) {
+      case 'small':
+        return 'h-4 w-4';
+      case 'large':
+        return 'h-6 w-6';
+      default:
+        return 'h-5 w-5';
+    }
+  };
+
+  const checkboxClasses = cn(
+    'relative inline-flex items-center justify-center flex-shrink-0 rounded border-2 border-gray-300 bg-white transition-colors duration-200 ease-in-out',
+    'focus-within:ring-2 focus-within:ring-blue-500 focus-within:ring-offset-2',
+    'hover:border-gray-400',
+    getSizeClasses(),
+    isChecked && 'bg-blue-600 border-blue-600',
+    indeterminate && 'bg-blue-600 border-blue-600',
+    disabled && 'opacity-50 cursor-not-allowed bg-gray-100 border-gray-200',
     className
   );
 
-  const wrapperClasses = [
-    'edifly-checkbox-wrapper',
-    isChecked && 'edifly-checkbox-wrapper--checked',
-    indeterminate && 'edifly-checkbox-wrapper--indeterminate',
-    disabled && 'edifly-checkbox-wrapper--disabled'
-  ].filter(Boolean).join(' ');
+  const wrapperClasses = cn(
+    'inline-flex items-center cursor-pointer',
+    disabled && 'cursor-not-allowed'
+  );
 
   const checkmarkIcon = () => {
     if (indeterminate) {
       return (
         <svg
-          className="edifly-checkbox__icon edifly-checkbox__icon--indeterminate"
+          className="h-3 w-3 text-white pointer-events-none"
           viewBox="0 0 16 16"
           fill="currentColor"
         >
@@ -84,7 +95,7 @@ export const Checkbox: React.FC<CheckboxProps> = ({
     
     return (
       <svg
-        className="edifly-checkbox__icon edifly-checkbox__icon--check"
+        className="h-3 w-3 text-white pointer-events-none"
         viewBox="0 0 16 16"
         fill="currentColor"
       >
@@ -103,7 +114,7 @@ export const Checkbox: React.FC<CheckboxProps> = ({
         <input
           ref={inputRef}
           type="checkbox"
-          className="edifly-checkbox__input"
+          className="absolute inset-0 opacity-0 cursor-pointer focus:outline-none"
           checked={isChecked}
           defaultChecked={!isControlled ? defaultChecked : undefined}
           onChange={handleChange}
@@ -115,12 +126,12 @@ export const Checkbox: React.FC<CheckboxProps> = ({
           id={id}
           aria-checked={indeterminate ? 'mixed' : isChecked}
         />
-        <span className="edifly-checkbox__inner">
+        <span className="flex items-center justify-center h-full w-full">
           {(isChecked || indeterminate) && checkmarkIcon()}
         </span>
       </span>
       {children && (
-        <span className="edifly-checkbox__label">
+        <span className="ml-2 text-sm text-gray-900 select-none">
           {children}
         </span>
       )}

@@ -1,7 +1,6 @@
 import React from 'react';
 import { BaseComponentProps } from '../../types';
-import { getComponentClasses } from '../../utils/classNames';
-import './AspectRatio.css';
+import { cn } from '../../utils/classNames';
 
 export interface AspectRatioProps extends BaseComponentProps {
   ratio?: number;
@@ -13,7 +12,22 @@ export interface AspectRatioProps extends BaseComponentProps {
   minHeight?: number | string;
 }
 
-export const AspectRatio: React.FC<AspectRatioProps> = ({
+interface AspectRatioComponent extends React.FC<AspectRatioProps> {
+  RATIOS: {
+    SQUARE: number;
+    PORTRAIT_3_4: number;
+    PORTRAIT_2_3: number;
+    PORTRAIT_9_16: number;
+    LANDSCAPE_4_3: number;
+    LANDSCAPE_3_2: number;
+    LANDSCAPE_16_9: number;
+    LANDSCAPE_21_9: number;
+    GOLDEN: number;
+    A4: number;
+  };
+}
+
+export const AspectRatio: AspectRatioComponent = ({
   ratio,
   width,
   height,
@@ -33,11 +47,8 @@ export const AspectRatio: React.FC<AspectRatioProps> = ({
     return 16 / 9; // Default to 16:9
   }, [ratio, width, height]);
 
-  const containerClasses = getComponentClasses(
-    'edifly-aspect-ratio',
-    undefined,
-    undefined,
-    undefined,
+  const containerClasses = cn(
+    'relative w-full',
     className
   );
 
@@ -58,10 +69,10 @@ export const AspectRatio: React.FC<AspectRatioProps> = ({
       {...rest}
     >
       <div
-        className="edifly-aspect-ratio__spacer"
+        className="w-full"
         style={{ paddingBottom }}
       />
-      <div className="edifly-aspect-ratio__content">
+      <div className="absolute inset-0 flex items-center justify-center">
         {children}
       </div>
     </div>

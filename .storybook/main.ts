@@ -21,6 +21,17 @@ const config: StorybookConfig = {
       propFilter: (prop) => (prop.parent ? !/node_modules/.test(prop.parent.fileName) : true),
     },
   },
+  async viteFinal(config) {
+    // Ensure PostCSS is configured for Tailwind
+    if (!config.css) {
+      config.css = {};
+    }
+    if (!config.css.postcss) {
+      config.css.postcss = {};
+    }
+    
+    return config;
+  },
 };
 
 export default config;

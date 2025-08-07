@@ -6,7 +6,7 @@ A modern React UI component library inspired by Ant Design, built with TypeScrip
 
 - 🎨 **Modern Design**: Clean and professional components with thoughtful spacing and typography
 - 🔧 **TypeScript Support**: Full TypeScript support with comprehensive type definitions
-- 🎭 **Theming**: CSS variables-based theming system with light and dark mode support
+- 🎭 **Tailwind CSS**: Modern utility-first styling with full Tailwind CSS integration
 - 📱 **Responsive**: Mobile-first responsive design
 - 🧩 **Modular**: Import only what you need for optimal bundle size
 - 📚 **Storybook**: Interactive component documentation and playground
@@ -23,16 +23,19 @@ yarn add edifly-ui
 ## Quick Start
 
 ```tsx
-import { Button, Input, Card } from 'edifly-ui';
+import { Button, Accordion, Avatar } from 'edifly-ui';
 
 function App() {
   return (
-    <Card title="Welcome to Edifly UI">
-      <Input placeholder="Enter your name" />
-      <Button variant="primary" style={{ marginTop: '16px' }}>
+    <div className="p-6 max-w-md mx-auto bg-white rounded-lg shadow-lg">
+      <div className="flex items-center space-x-4 mb-4">
+        <Avatar fallback="John Doe" size="large" />
+        <h1 className="text-xl font-semibold text-gray-900">Welcome to Edifly UI</h1>
+      </div>
+      <Button variant="primary" className="w-full">
         Get Started
       </Button>
-    </Card>
+    </div>
   );
 }
 ```
@@ -57,40 +60,6 @@ import { Button } from 'edifly-ui';
 - `disabled`: boolean
 - `loading`: boolean
 
-### Input
-
-A flexible input component with prefix/suffix support and validation states.
-
-```tsx
-import { Input } from 'edifly-ui';
-
-<Input
-  placeholder="Enter email"
-  prefix="@"
-  suffix=".com"
-  error={false}
-  errorMessage="Invalid email"
-/>
-```
-
-### Card
-
-A content container with optional header, cover, and actions.
-
-```tsx
-import { Card, Button } from 'edifly-ui';
-
-<Card
-  title="Card Title"
-  cover={<img src="image.jpg" alt="cover" />}
-  actions={[
-    <Button key="edit">Edit</Button>,
-    <Button key="delete" variant="danger">Delete</Button>
-  ]}
->
-  Card content goes here
-</Card>
-```
 
 ### Accordion
 
@@ -356,24 +325,31 @@ import { Command } from 'edifly-ui';
 
 ## Theming
 
-Edifly UI uses CSS variables for theming. You can customize the appearance by overriding these variables:
+Edifly UI is built with Tailwind CSS, giving you full access to Tailwind's utility classes and customization options. You can customize the library by extending your Tailwind configuration:
 
-```css
-:root {
-  --edifly-color-primary: #1890ff;
-  --edifly-color-success: #52c41a;
-  --edifly-color-warning: #faad14;
-  --edifly-color-danger: #ff4d4f;
-  --edifly-font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-}
-
-/* Dark theme */
-[data-theme="dark"] {
-  --edifly-color-text: #ffffffd9;
-  --edifly-color-bg: #141414;
-  --edifly-color-border: #424242;
-}
+```js
+// tailwind.config.js
+module.exports = {
+  theme: {
+    extend: {
+      colors: {
+        primary: {
+          50: '#eff6ff',
+          500: '#3b82f6',
+          600: '#2563eb',
+          700: '#1d4ed8',
+        },
+      },
+      fontFamily: {
+        'sans': ['Inter', 'system-ui', 'sans-serif'],
+      },
+    },
+  },
+  // ... other config
+};
 ```
+
+All components accept standard Tailwind classes through the `className` prop for easy customization.
 
 ## Development
 
@@ -419,8 +395,8 @@ This creates optimized bundles in the `dist` folder:
 - `dist/index.js` - CommonJS build
 - `dist/index.esm.js` - ES modules build
 - `dist/index.d.ts` - TypeScript declarations
-- `dist/index.css` - Bundled styles
+- `dist/index.css` - Generated Tailwind CSS styles
 
 ## License
 
-MIT © Edifly Team
+MIT © PT EDIfly Solusi Indonesia

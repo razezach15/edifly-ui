@@ -1,7 +1,6 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { BaseComponentProps } from '../../types';
-import { getComponentClasses } from '../../utils/classNames';
-import './Command.css';
+import { cn } from '../../utils/classNames';
 
 export interface CommandItem {
   id: string;
@@ -152,21 +151,21 @@ export const Command: React.FC<CommandProps> = ({
     }
   }, [selectedIndex]);
 
-  const commandClasses = getComponentClasses(
-    'edifly-command',
-    undefined,
-    undefined,
-    undefined,
+  const commandClasses = cn(
+    'bg-white border border-gray-200 rounded-lg shadow-lg overflow-hidden',
+    'max-w-md w-full',
     className
   );
 
   const renderItem = (item: CommandItem, index: number) => {
     const isSelected = index === selectedIndex;
-    const itemClasses = [
-      'edifly-command__item',
-      isSelected && 'edifly-command__item--selected',
-      item.disabled && 'edifly-command__item--disabled'
-    ].filter(Boolean).join(' ');
+    const itemClasses = cn(
+      'flex items-center gap-3 px-3 py-2 cursor-pointer',
+      'hover:bg-gray-100 transition-colors duration-150',
+      'focus:outline-none focus:bg-gray-100',
+      isSelected && 'bg-blue-50 border-l-2 border-l-blue-500',
+      item.disabled && 'opacity-50 cursor-not-allowed hover:bg-transparent'
+    );
 
     return (
       <div
@@ -179,16 +178,16 @@ export const Command: React.FC<CommandProps> = ({
         aria-selected={isSelected}
       >
         {item.icon && (
-          <span className="edifly-command__item-icon">
+          <span className="flex-shrink-0 w-4 h-4 text-gray-500">
             {item.icon}
           </span>
         )}
-        <div className="edifly-command__item-content">
-          <div className="edifly-command__item-label">
+        <div className="flex-1 min-w-0">
+          <div className="text-sm font-medium text-gray-900 truncate">
             {item.label}
           </div>
           {item.description && (
-            <div className="edifly-command__item-description">
+            <div className="text-xs text-gray-500 truncate">
               {item.description}
             </div>
           )}
@@ -211,8 +210,8 @@ export const Command: React.FC<CommandProps> = ({
       if (groupItems.length === 0) return null;
 
       return (
-        <div key={group.id} className="edifly-command__group">
-          <div className="edifly-command__group-label">
+        <div key={group.id} className="border-b border-gray-100 last:border-b-0">
+          <div className="px-3 py-2 text-xs font-semibold text-gray-500 uppercase tracking-wide bg-gray-50">
             {group.label}
           </div>
           {groupItems.map(item => {
@@ -231,9 +230,9 @@ export const Command: React.FC<CommandProps> = ({
       style={style}
       {...rest}
     >
-      <div className="edifly-command__input-wrapper">
+      <div className="relative flex items-center border-b border-gray-200">
         <svg
-          className="edifly-command__search-icon"
+          className="absolute left-3 w-4 h-4 text-gray-400"
           width="16"
           height="16"
           viewBox="0 0 16 16"
@@ -244,7 +243,7 @@ export const Command: React.FC<CommandProps> = ({
         <input
           ref={inputRef}
           type="text"
-          className="edifly-command__input"
+          className="w-full pl-10 pr-4 py-3 text-sm bg-transparent border-none outline-none placeholder-gray-500"
           placeholder={placeholder}
           value={currentValue}
           onChange={handleInputChange}
@@ -259,8 +258,8 @@ export const Command: React.FC<CommandProps> = ({
           }
         />
         {loading && (
-          <div className="edifly-command__loading">
-            <div className="edifly-command__spinner" />
+          <div className="absolute right-3 flex items-center">
+            <div className="w-4 h-4 border-2 border-gray-300 border-t-blue-500 rounded-full animate-spin" />
           </div>
         )}
       </div>
@@ -268,17 +267,17 @@ export const Command: React.FC<CommandProps> = ({
       {open && (
         <div
           ref={listRef}
-          className="edifly-command__list"
+          className="overflow-y-auto"
           style={{ maxHeight }}
           role="listbox"
         >
           {loading ? (
-            <div className="edifly-command__loading-state">
-              <div className="edifly-command__spinner" />
+            <div className="flex items-center justify-center gap-2 py-8 text-sm text-gray-500">
+              <div className="w-4 h-4 border-2 border-gray-300 border-t-blue-500 rounded-full animate-spin" />
               <span>Loading...</span>
             </div>
           ) : filteredItems.length === 0 ? (
-            <div className="edifly-command__empty">
+            <div className="py-8 px-3 text-sm text-center text-gray-500">
               {emptyMessage}
             </div>
           ) : (

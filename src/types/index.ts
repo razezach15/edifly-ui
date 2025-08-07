@@ -1,3 +1,5 @@
+import React from 'react';
+
 export type Size = 'small' | 'medium' | 'large';
 export type Variant = 'primary' | 'secondary' | 'success' | 'warning' | 'danger';
 export type ComponentProps = {
@@ -10,4 +12,5 @@ export type ComponentProps = {
 export interface BaseComponentProps extends ComponentProps {
   id?: string;
   'data-testid'?: string;
+  style?: React.CSSProperties;
 }
