@@ -7,6 +7,7 @@ export interface CheckboxProps extends Omit<BaseComponentProps, 'children'> {
   checked?: boolean;
   defaultChecked?: boolean;
   indeterminate?: boolean;
+  disabled?: boolean;
   onChange?: (checked: boolean, event: React.ChangeEvent<HTMLInputElement>) => void;
   value?: string | number;
   name?: string;
@@ -30,7 +31,7 @@ export const Checkbox: React.FC<CheckboxProps> = ({
   children,
   id,
   style,
-  ...rest
+  ..._rest
 }) => {
   const [internalChecked, setInternalChecked] = React.useState(defaultChecked || false);
   const inputRef = React.useRef<HTMLInputElement>(null);
@@ -71,13 +72,13 @@ export const Checkbox: React.FC<CheckboxProps> = ({
     getSizeClasses(),
     isChecked && 'bg-blue-600 border-blue-600',
     indeterminate && 'bg-blue-600 border-blue-600',
-    disabled && 'opacity-50 cursor-not-allowed bg-gray-100 border-gray-200',
-    className
+    disabled && 'opacity-50 cursor-not-allowed bg-gray-100 border-gray-200'
   );
 
   const wrapperClasses = cn(
     'inline-flex items-center cursor-pointer',
-    disabled && 'cursor-not-allowed'
+    disabled && 'cursor-not-allowed',
+    className
   );
 
   const checkmarkIcon = () => {
@@ -106,17 +107,16 @@ export const Checkbox: React.FC<CheckboxProps> = ({
 
   return (
     <label
+      htmlFor={id}
       className={wrapperClasses}
       style={style}
-      {...rest}
     >
       <span className={checkboxClasses}>
         <input
           ref={inputRef}
           type="checkbox"
           className="absolute inset-0 opacity-0 cursor-pointer focus:outline-none"
-          checked={isChecked}
-          defaultChecked={!isControlled ? defaultChecked : undefined}
+          {...(isControlled ? { checked: isChecked } : { defaultChecked })}
           onChange={handleChange}
           value={value}
           name={name}

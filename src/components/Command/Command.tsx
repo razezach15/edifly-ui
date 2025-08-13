@@ -1,4 +1,4 @@
-import React, { useState, useRef, useEffect } from 'react';
+import React, { useState, useRef, useEffect, useCallback } from 'react';
 import { BaseComponentProps } from '../../types';
 import { cn } from '../../utils/classNames';
 
@@ -91,7 +91,7 @@ export const Command: React.FC<CommandProps> = ({
     setSelectedIndex(0);
   }, [filteredItems]);
 
-  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleInputChange = useCallback((e: React.ChangeEvent<HTMLInputElement>) => {
     const newValue = e.target.value;
     
     if (!isControlled) {
@@ -99,15 +99,15 @@ export const Command: React.FC<CommandProps> = ({
     }
     
     onValueChange?.(newValue);
-  };
+  }, [isControlled, onValueChange]);
 
-  const handleItemSelect = (item: CommandItem) => {
+  const handleItemSelect = useCallback((item: CommandItem) => {
     item.onSelect?.();
     onSelect?.(item);
     onOpenChange?.(false);
-  };
+  }, [onSelect, onOpenChange]);
 
-  const handleKeyDown = (e: React.KeyboardEvent) => {
+  const handleKeyDown = useCallback((e: React.KeyboardEvent) => {
     if (!open) return;
 
     switch (e.key) {
@@ -133,7 +133,7 @@ export const Command: React.FC<CommandProps> = ({
         inputRef.current?.blur();
         break;
     }
-  };
+  }, [open, filteredItems, selectedIndex, handleItemSelect, onOpenChange]);
 
   // Scroll selected item into view
   useEffect(() => {
@@ -157,7 +157,7 @@ export const Command: React.FC<CommandProps> = ({
     className
   );
 
-  const renderItem = (item: CommandItem, index: number) => {
+  const renderItem = useCallback((item: CommandItem, index: number) => {
     const isSelected = index === selectedIndex;
     const itemClasses = cn(
       'flex items-center gap-3 px-3 py-2 cursor-pointer',
@@ -170,12 +170,14 @@ export const Command: React.FC<CommandProps> = ({
     return (
       <div
         key={item.id}
+        id={`command-item-${item.id}`}
         data-index={index}
         className={itemClasses}
         onClick={() => !item.disabled && handleItemSelect(item)}
         onMouseEnter={() => setSelectedIndex(index)}
         role="option"
         aria-selected={isSelected}
+        aria-disabled={item.disabled}
       >
         {item.icon && (
           <span className="flex-shrink-0 w-4 h-4 text-gray-500">
@@ -194,7 +196,7 @@ export const Command: React.FC<CommandProps> = ({
         </div>
       </div>
     );
-  };
+  }, [selectedIndex, handleItemSelect]);
 
   const renderGroupedItems = () => {
     if (groups.length === 0) {
@@ -251,6 +253,7 @@ export const Command: React.FC<CommandProps> = ({
           role="combobox"
           aria-expanded={open}
           aria-autocomplete="list"
+          aria-owns={open ? "command-listbox" : undefined}
           aria-activedescendant={
             filteredItems[selectedIndex] ? 
             `command-item-${filteredItems[selectedIndex].id}` : 
@@ -266,10 +269,12 @@ export const Command: React.FC<CommandProps> = ({
 
       {open && (
         <div
+          id="command-listbox"
           ref={listRef}
           className="overflow-y-auto"
           style={{ maxHeight }}
           role="listbox"
+          aria-label="Command options"
         >
           {loading ? (
             <div className="flex items-center justify-center gap-2 py-8 text-sm text-gray-500">

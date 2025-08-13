@@ -22,13 +22,16 @@ const config: StorybookConfig = {
     },
   },
   async viteFinal(config) {
-    // Ensure PostCSS is configured for Tailwind
+    // Configure PostCSS for Tailwind CSS v4
     if (!config.css) {
       config.css = {};
     }
-    if (!config.css.postcss) {
-      config.css.postcss = {};
-    }
+    config.css.postcss = {
+      plugins: [
+        (await import('@tailwindcss/postcss')).default,
+        (await import('autoprefixer')).default,
+      ],
+    };
     
     return config;
   },

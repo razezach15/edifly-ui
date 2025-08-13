@@ -2,15 +2,31 @@ import React from 'react';
 
 export type Size = 'small' | 'medium' | 'large';
 export type Variant = 'primary' | 'secondary' | 'success' | 'warning' | 'danger';
-export type ComponentProps = {
+
+// Separate base HTML props from component-specific props
+export interface BaseHTMLProps {
+  id?: string;
   className?: string;
+  style?: React.CSSProperties;
+  'data-testid'?: string;
+}
+
+// Component variant and styling props
+export interface ComponentVariantProps {
+  variant?: Variant;
   size?: Size;
   disabled?: boolean;
-  children?: React.ReactNode;
-};
-
-export interface BaseComponentProps extends ComponentProps {
-  id?: string;
-  'data-testid'?: string;
-  style?: React.CSSProperties;
 }
+
+// Legacy support - will be deprecated
+export interface ComponentProps extends BaseHTMLProps, ComponentVariantProps {
+  children?: React.ReactNode;
+}
+
+// Recommended base props interface
+export interface BaseComponentProps extends BaseHTMLProps {
+  children?: React.ReactNode;
+}
+
+// Combined interface for components that need variants
+export interface VariantComponentProps extends BaseComponentProps, ComponentVariantProps {}

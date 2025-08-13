@@ -1,16 +1,14 @@
 import React from 'react';
-import { BaseComponentProps, Variant, Size } from '../../types';
+import { VariantComponentProps } from '../../types';
 import { cn, variantClasses, sizeClasses } from '../../utils/classNames';
 
-export interface ButtonProps extends BaseComponentProps {
-  variant?: Variant;
-  size?: Size;
+export interface ButtonProps extends VariantComponentProps {
   type?: 'button' | 'submit' | 'reset';
   onClick?: (event: React.MouseEvent<HTMLButtonElement>) => void;
   loading?: boolean;
 }
 
-export const Button: React.FC<ButtonProps> = ({
+export const Button: React.FC<ButtonProps> = React.memo(({
   children,
   variant = 'primary',
   size = 'medium',
@@ -68,4 +66,6 @@ export const Button: React.FC<ButtonProps> = ({
       {children}
     </button>
   );
-};
+});
+
+Button.displayName = 'Button';

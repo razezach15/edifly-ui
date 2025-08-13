@@ -1,4 +1,4 @@
-import React, { useState, useRef, useEffect } from 'react';
+import React, { useState, useRef, useEffect, useCallback } from 'react';
 import { BaseComponentProps } from '../../types';
 import { cn } from '../../utils/classNames';
 
@@ -35,7 +35,7 @@ const DefaultExpandIcon = (isActive: boolean) => (
   </svg>
 );
 
-export const Accordion: React.FC<AccordionProps> = ({
+export const Accordion: React.FC<AccordionProps> = React.memo(({
   items,
   defaultActiveKey,
   activeKey,
@@ -56,7 +56,7 @@ export const Accordion: React.FC<AccordionProps> = ({
 
   const currentActiveKey = activeKey !== undefined ? activeKey : internalActiveKey;
 
-  const handleItemClick = (key: string) => {
+  const handleItemClick = useCallback((key: string) => {
     let newActiveKey: string | string[];
 
     if (accordion) {
@@ -72,7 +72,7 @@ export const Accordion: React.FC<AccordionProps> = ({
       setInternalActiveKey(newActiveKey);
     }
     onChange?.(newActiveKey);
-  };
+  }, [accordion, currentActiveKey, activeKey, onChange]);
 
   const isItemActive = (key: string): boolean => {
     if (accordion) {
@@ -83,8 +83,8 @@ export const Accordion: React.FC<AccordionProps> = ({
 
   const accordionClasses = cn(
     'w-full',
-    bordered && 'border border-gray-200 rounded-lg overflow-hidden',
-    ghost && 'border-0 bg-transparent',
+    bordered && 'border border-gray-200 rounded-md overflow-hidden shadow-sm',
+    ghost && 'border-0 bg-transparent shadow-none',
     className
   );
 
@@ -102,7 +102,9 @@ export const Accordion: React.FC<AccordionProps> = ({
       ))}
     </div>
   );
-};
+});
+
+Accordion.displayName = 'Accordion';
 
 interface AccordionItemComponentProps {
   item: AccordionItemProps;
@@ -112,7 +114,7 @@ interface AccordionItemComponentProps {
   expandIconPosition: 'start' | 'end';
 }
 
-const AccordionItem: React.FC<AccordionItemComponentProps> = ({
+const AccordionItem: React.FC<AccordionItemComponentProps> = React.memo(({
   item,
   isActive,
   onClick,
@@ -129,12 +131,12 @@ const AccordionItem: React.FC<AccordionItemComponentProps> = ({
   }, [isActive]);
 
   const itemClasses = cn(
-    'border-b border-gray-200 last:border-b-0',
+    'border-b border-gray-100 last:border-b-0',
     item.disabled && 'opacity-50 cursor-not-allowed'
   );
 
   const headerClasses = cn(
-    'flex items-center w-full px-4 py-3 text-left bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-inset transition-colors duration-200',
+    'flex items-center w-full px-6 py-4 text-left bg-white hover:bg-gray-50/50 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-inset transition-all duration-200',
     expandIconPosition === 'end' && 'justify-between',
     item.disabled && 'cursor-not-allowed hover:bg-white'
   );
@@ -142,11 +144,14 @@ const AccordionItem: React.FC<AccordionItemComponentProps> = ({
   return (
     <div className={itemClasses}>
       <div
+        id={`accordion-header-${item.key}`}
         className={headerClasses}
         onClick={onClick}
         role="button"
         tabIndex={item.disabled ? -1 : 0}
         aria-expanded={isActive}
+        aria-controls={`accordion-content-${item.key}`}
+        aria-describedby={item.extra ? `accordion-extra-${item.key}` : undefined}
         onKeyDown={(e) => {
           if (e.key === 'Enter' || e.key === ' ') {
             e.preventDefault();
@@ -160,10 +165,10 @@ const AccordionItem: React.FC<AccordionItemComponentProps> = ({
           </span>
         )}
         
-        <span className="flex-1 font-medium text-gray-900">{item.title}</span>
+        <span className="flex-1 font-normal text-gray-800">{item.title}</span>
         
         {item.extra && (
-          <span className="ml-3 text-sm text-gray-500">{item.extra}</span>
+          <span id={`accordion-extra-${item.key}`} className="ml-3 text-sm text-gray-500">{item.extra}</span>
         )}
         
         {expandIconPosition === 'end' && (
@@ -174,13 +179,18 @@ const AccordionItem: React.FC<AccordionItemComponentProps> = ({
       </div>
       
       <div
-        className="overflow-hidden transition-all duration-300 ease-in-out bg-gray-50"
+        id={`accordion-content-${item.key}`}
+        className="overflow-hidden transition-all duration-300 ease-in-out bg-white"
         style={{ height: contentHeight }}
+        role="region"
+        aria-labelledby={`accordion-header-${item.key}`}
       >
-        <div ref={contentRef} className="px-4 py-3 text-gray-700">
+        <div ref={contentRef} className="px-6 py-4 text-gray-600 text-sm leading-relaxed">
           {item.content}
         </div>
       </div>
     </div>
   );
-};
+});
+
+AccordionItem.displayName = 'AccordionItem';
