@@ -125,6 +125,7 @@ export const Checkbox: React.FC<CheckboxProps> = ({
           disabled={disabled}
           id={id}
           aria-checked={indeterminate ? 'mixed' : isChecked}
+          {..._rest}
         />
         <span className="flex items-center justify-center h-full w-full">
           {(isChecked || indeterminate) && checkmarkIcon()}

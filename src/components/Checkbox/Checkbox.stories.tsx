@@ -83,6 +83,7 @@ export const WithoutLabel: Story = {
 };
 
 export const AllSizes: Story = {
+  args: {},
   render: () => React.createElement('div', {
     style: {
       display: 'flex',
@@ -97,6 +98,7 @@ export const AllSizes: Story = {
 };
 
 export const AllStates: Story = {
+  args: {},
   render: () => React.createElement('div', {
     style: {
       display: 'flex',
@@ -114,6 +116,7 @@ export const AllStates: Story = {
 };
 
 export const Controlled: Story = {
+  args: {},
   render: () => {
     const [checked, setChecked] = React.useState(false);
     
@@ -136,6 +139,7 @@ export const Controlled: Story = {
 };
 
 export const CheckboxGroup: Story = {
+  args: {},
   render: () => {
     const [selectedItems, setSelectedItems] = React.useState(['item1']);
     
@@ -146,7 +150,7 @@ export const CheckboxGroup: Story = {
       { id: 'item4', label: 'Item 4 (disabled)', disabled: true },
     ];
     
-    const handleItemChange = (itemId, checked) => {
+    const handleItemChange = (itemId: string, checked: boolean) => {
       if (checked) {
         setSelectedItems(prev => [...prev, itemId]);
       } else {
@@ -160,7 +164,7 @@ export const CheckboxGroup: Story = {
     const someChecked = selectedItems.length > 0;
     const indeterminate = someChecked && !allChecked;
     
-    const handleSelectAll = (checked) => {
+    const handleSelectAll = (checked: boolean) => {
       if (checked) {
         setSelectedItems(items.filter(item => !item.disabled).map(item => item.id));
       } else {
@@ -214,6 +218,7 @@ export const CheckboxGroup: Story = {
 };
 
 export const FormExample: Story = {
+  args: {},
   render: () => {
     const [formData, setFormData] = React.useState({
       newsletter: false,
@@ -222,7 +227,7 @@ export const FormExample: Story = {
       marketing: false
     });
     
-    const handleChange = (name, checked) => {
+    const handleChange = (name: string, checked: boolean) => {
       setFormData(prev => ({ ...prev, [name]: checked }));
     };
     
@@ -295,6 +300,7 @@ export const FormExample: Story = {
 };
 
 export const CustomStyling: Story = {
+  args: {},
   render: () => React.createElement('div', {
     style: {
       display: 'flex',
@@ -306,21 +312,21 @@ export const CustomStyling: Story = {
       defaultChecked: true,
       style: {
         '--edifly-color-primary': '#52c41a'
-      }
+      } as React.CSSProperties
     }, 'Success color checkbox'),
     
     React.createElement(Checkbox, {
       defaultChecked: true,
       style: {
         '--edifly-color-primary': '#faad14'
-      }
+      } as React.CSSProperties
     }, 'Warning color checkbox'),
     
     React.createElement(Checkbox, {
       defaultChecked: true,
       style: {
         '--edifly-color-primary': '#ff4d4f'
-      }
+      } as React.CSSProperties
     }, 'Danger color checkbox')
   ),
 };

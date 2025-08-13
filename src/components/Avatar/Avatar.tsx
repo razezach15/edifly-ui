@@ -16,7 +16,7 @@ export interface AvatarProps extends Omit<BaseComponentProps, 'size'> {
 }
 
 export const Avatar: React.FC<AvatarProps> = ({
-  size = 'medium',
+  size,
   shape = 'circle',
   src,
   alt,
@@ -72,6 +72,10 @@ export const Avatar: React.FC<AvatarProps> = ({
     large: 'w-12 h-12 text-base'
   };
 
+  const actualSize = size ?? 'medium';
+  const isNumericSize = typeof actualSize === 'number';
+  const stringSize = actualSize as Size;
+
   const avatarClasses = cn(
     // Base styles
     'inline-flex items-center justify-center font-medium text-white overflow-hidden',
@@ -79,7 +83,7 @@ export const Avatar: React.FC<AvatarProps> = ({
     // Shape
     shape === 'circle' ? 'rounded-full' : 'rounded-lg',
     // Size
-    typeof size === 'string' ? sizeClasses[size] : '',
+    !isNumericSize ? sizeClasses[stringSize] : '',
     // Interactive
     onClick && 'cursor-pointer hover:opacity-80 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2',
     className
@@ -87,10 +91,10 @@ export const Avatar: React.FC<AvatarProps> = ({
 
   const avatarStyle: React.CSSProperties = {
     ...style,
-    ...(typeof size === 'number' && {
-      width: getSizeValue(size),
-      height: getSizeValue(size),
-      fontSize: `${size * 0.45}px`,
+    ...(isNumericSize && {
+      width: getSizeValue(actualSize),
+      height: getSizeValue(actualSize),
+      fontSize: `${actualSize * 0.45}px`,
     }),
   };
 

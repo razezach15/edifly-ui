@@ -7,7 +7,9 @@ describe('classNames utilities', () => {
     });
 
     it('handles conditional classes', () => {
-      expect(cn('base', true && 'conditional', false && 'hidden')).toBe('base conditional');
+      const shouldShow = true;
+      const shouldHide = false;
+      expect(cn('base', shouldShow && 'conditional', shouldHide && 'hidden')).toBe('base conditional');
     });
 
     it('filters out falsy values', () => {

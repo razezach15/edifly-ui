@@ -1,5 +1,6 @@
 import React from 'react';
 import { render, screen } from '@testing-library/react';
+import '@testing-library/jest-dom';
 import { ErrorBoundary } from './ErrorBoundary';
 
 const ThrowError = ({ shouldThrow }: { shouldThrow: boolean }) => {

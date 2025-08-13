@@ -19,7 +19,7 @@ export interface CommandGroup {
   items: CommandItem[];
 }
 
-export interface CommandProps extends BaseComponentProps {
+export interface CommandProps extends Omit<React.HTMLAttributes<HTMLDivElement>, 'style' | 'className' | 'children' | 'onSelect'>, BaseComponentProps {
   items?: CommandItem[];
   groups?: CommandGroup[];
   placeholder?: string;

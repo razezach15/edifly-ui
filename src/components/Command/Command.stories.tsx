@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/react';
-import { Command } from './Command';
+import { Command, CommandItem } from './Command';
 import React from 'react';
 
 const meta = {
@@ -174,7 +174,7 @@ export const Empty: Story = {
 export const Controlled: Story = {
   render: () => {
     const [value, setValue] = React.useState('');
-    const [selectedItem, setSelectedItem] = React.useState(null);
+    const [selectedItem, setSelectedItem] = React.useState<CommandItem | null>(null);
     
     return React.createElement('div', { style: { width: '400px' } },
       React.createElement('div', {
@@ -206,13 +206,13 @@ export const CustomFilter: Story = {
     ];
     
     // Custom filter that gives priority to exact matches
-    const customFilter = (items, search) => {
+    const customFilter = (items: CommandItem[], search: string): CommandItem[] => {
       if (!search) return items;
       
-      const exactMatches = [];
-      const partialMatches = [];
+      const exactMatches: CommandItem[] = [];
+      const partialMatches: CommandItem[] = [];
       
-      items.forEach(item => {
+      items.forEach((item: CommandItem) => {
         const searchLower = search.toLowerCase();
         const labelLower = item.label.toLowerCase();
         
@@ -220,7 +220,7 @@ export const CustomFilter: Story = {
           exactMatches.push(item);
         } else if (labelLower.includes(searchLower) || 
                    item.description?.toLowerCase().includes(searchLower) ||
-                   item.keywords?.some(k => k.toLowerCase().includes(searchLower))) {
+                   item.keywords?.some((k: string) => k.toLowerCase().includes(searchLower))) {
           partialMatches.push(item);
         }
       });
@@ -309,7 +309,7 @@ export const WithIcons: Story = {
 export const AsyncSearch: Story = {
   render: () => {
     const [loading, setLoading] = React.useState(false);
-    const [items, setItems] = React.useState([]);
+    const [items, setItems] = React.useState<CommandItem[]>([]);
     const [value, setValue] = React.useState('');
     
     // Simulate async search
@@ -326,7 +326,7 @@ export const AsyncSearch: Story = {
           { id: 'result1', label: `Search result for "${value}"`, description: 'First result' },
           { id: 'result2', label: `Another result for "${value}"`, description: 'Second result' },
           { id: 'result3', label: `Best match for "${value}"`, description: 'Third result' },
-        ].filter(item => Math.random() > 0.3); // Randomly filter some results
+        ].filter(() => Math.random() > 0.3); // Randomly filter some results
         
         setItems(mockResults);
         setLoading(false);
@@ -366,7 +366,7 @@ export const CommandPalette: Story = {
     ];
     
     React.useEffect(() => {
-      const handleKeyDown = (e) => {
+      const handleKeyDown = (e: KeyboardEvent) => {
         if ((e.ctrlKey || e.metaKey) && e.shiftKey && e.key === 'P') {
           e.preventDefault();
           setOpen(prev => !prev);
@@ -423,7 +423,7 @@ export const CommandPalette: Story = {
           paddingTop: '100px',
           zIndex: 1000
         },
-        onClick: (e) => {
+        onClick: (e: React.MouseEvent) => {
           if (e.target === e.currentTarget) {
             setOpen(false);
           }
@@ -439,8 +439,7 @@ export const CommandPalette: Story = {
             }
           })),
           placeholder: 'Type a command or search...',
-          onOpenChange: setOpen,
-          autoFocus: true
+          onOpenChange: setOpen
         })
       ))
     );

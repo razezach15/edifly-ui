@@ -37,6 +37,10 @@ export default meta;
 type Story = StoryObj<typeof meta>;
 
 export const Basic: Story = {
+  args: {
+    open: false,
+    onClose: () => {},
+  },
   render: () => {
     const [open, setOpen] = useState(false);
     
@@ -65,6 +69,10 @@ export const Basic: Story = {
 };
 
 export const Success: Story = {
+  args: {
+    open: false,
+    onClose: () => {},
+  },
   render: () => {
     const [open, setOpen] = useState(false);
     
@@ -88,6 +96,10 @@ export const Success: Story = {
 };
 
 export const Warning: Story = {
+  args: {
+    open: false,
+    onClose: () => {},
+  },
   render: () => {
     const [open, setOpen] = useState(false);
     
@@ -113,6 +125,10 @@ export const Warning: Story = {
 };
 
 export const Danger: Story = {
+  args: {
+    open: false,
+    onClose: () => {},
+  },
   render: () => {
     const [open, setOpen] = useState(false);
     const [loading, setLoading] = useState(false);
@@ -149,6 +165,10 @@ export const Danger: Story = {
 };
 
 export const Info: Story = {
+  args: {
+    open: false,
+    onClose: () => {},
+  },
   render: () => {
     const [open, setOpen] = useState(false);
     
@@ -172,6 +192,10 @@ export const Info: Story = {
 };
 
 export const WithCustomContent: Story = {
+  args: {
+    open: false,
+    onClose: () => {},
+  },
   render: () => {
     const [open, setOpen] = useState(false);
     
@@ -208,6 +232,10 @@ export const WithCustomContent: Story = {
 };
 
 export const NotClosable: Story = {
+  args: {
+    open: false,
+    onClose: () => {},
+  },
   render: () => {
     const [open, setOpen] = useState(false);
     
@@ -234,6 +262,10 @@ export const NotClosable: Story = {
 };
 
 export const CustomWidth: Story = {
+  args: {
+    open: false,
+    onClose: () => {},
+  },
   render: () => {
     const [open, setOpen] = useState(false);
     
@@ -276,6 +308,10 @@ export const CustomWidth: Story = {
 };
 
 export const AllVariants: Story = {
+  args: {
+    open: false,
+    onClose: () => {},
+  },
   render: () => {
     const [openDialogs, setOpenDialogs] = useState({
       info: false,

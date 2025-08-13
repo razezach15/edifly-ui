@@ -12,7 +12,7 @@ export interface AspectRatioProps extends BaseComponentProps {
   minHeight?: number | string;
 }
 
-interface AspectRatioComponent extends React.FC<AspectRatioProps> {
+export interface AspectRatioComponent extends React.FC<AspectRatioProps> {
   RATIOS: {
     SQUARE: number;
     PORTRAIT_3_4: number;

@@ -209,6 +209,9 @@ export const WithDisabled: Story = {
 };
 
 export const Controlled: Story = {
+  args: {
+    items: defaultItems,
+  },
   render: () => {
     const [activeKey, setActiveKey] = useState<string[]>(['1']);
     
@@ -252,6 +255,9 @@ export const CustomIcon: Story = {
 };
 
 export const FAQ: Story = {
+  args: {
+    items: [],
+  },
   render: () => (
     <div style={{ width: '600px' }}>
       <h2 style={{ marginBottom: '16px', fontSize: '24px', fontWeight: '600' }}>
